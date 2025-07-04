@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clone') {
+            steps {
+                git 'https://your-repo-url.git'
+            }
+        }
+        stage('Build Docker') {
+            steps {
+                sh 'docker build -t video-converter .'
+            }
+        }
+        stage('Run Container') {
+            steps {
+                sh 'docker run -d -p 5000:5000 --name video-app video-converter'
+            }
+        }
+    }
+}
